@@ -6,6 +6,33 @@ header, main, footer {
   padding-left: 240px;
 }
 
+.btn-fixed-add{
+	position: fixed;
+	top: 80px;
+	right: 10px;
+	z-index: 2;
+}
+
+.collection .collection-item.avatar {
+	.secondary-content {
+		top: 25px;
+		display: none;
+	}
+	.tertiary-content {
+		position: absolute;
+    	right: 60px;
+		top: 25px;
+		display: none;
+	}
+
+	&:hover {
+		.secondary-content,.tertiary-content{
+			display: inline-block;
+		}
+	}
+}
+
+
 @media only screen and (max-width : 992px) {
   header, main, footer {
     padding-left: 0;
