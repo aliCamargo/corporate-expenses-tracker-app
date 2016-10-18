@@ -19,8 +19,9 @@ function appRoutes($stateProvider, $urlRouterProvider) {
             url: '/admin',
             templateUrl: "views/admin/home.html",
             controller: "AdminHomeController as vm",
-            resolve: {
-                current_user: resolveUser
+            session: {
+                role: 'admin', 
+                login: true
             }
         })
 
@@ -28,9 +29,11 @@ function appRoutes($stateProvider, $urlRouterProvider) {
             url: '/employee',
             templateUrl: "views/employee/home.html",
             controller: "EmployeeHomeController as vm",
-            resolve: {
-                current_user: resolveUser
+            session: {
+                role: 'employee', 
+                login: true
             }
+            
         })
 
 
@@ -51,19 +54,4 @@ function appRoutes($stateProvider, $urlRouterProvider) {
         //     controller: "OptionController as vm"
         // });
 
-
-
-    function resolveUser(ServiceCore, toastr, Restangular, $stateParams, $q, $rootScope, localStorage) {
-        var def = $q.defer();
-        var user = localStorage.getObject('user');
-
-        if( user != null && user != undefined ){
-            def.resolve( user )
-        }else{
-            def.reject();
-        }
-
-        return def.promise;
-
-    }
 }

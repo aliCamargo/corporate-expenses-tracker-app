@@ -19,12 +19,13 @@
         vm.loginSubmit = function (){
             SessionManagerFactory.Login(vm.session).then(
                 function(result){
+                    console.log(result)
                     if( result.errors ){
                         toastr.error(result.errors.message);
                     }else{
                         toastr.success("Login successfully!");
                         $timeout(function() {
-                            $state.go("home");
+                            $state.go(result.user.role);
                         }, 1000);
                     }
 

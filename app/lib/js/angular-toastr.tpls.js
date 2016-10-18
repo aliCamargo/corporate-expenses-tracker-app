@@ -469,7 +469,7 @@
         }
         toastr.remove(scope.toastId, wasClicked);
       };
-
+      
       scope.refreshTimer = function(newTime) {
         if (timeout) {
           $interval.cancel(timeout);

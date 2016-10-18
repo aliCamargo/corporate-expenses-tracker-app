@@ -18,13 +18,13 @@
 </head>
 <body ng-app="app">
 <header>
-    <nav>
+    <nav class="teal">
       <ul id="nav-mobile" class="side-nav fixed">
-        <li><a>{{$rootScope.user.role}}</a></li>
-        <li><a ui-sref="admin" ng-show="current_user.role == 'admin'">Home A</a></li>
-        <li><a ui-sref="employee" ng-show="current_user.role == 'employee'">Home E</a></li>
+        <li><a>{{current_user.email}}</a></li>
+        <li><a ui-sref="current_user.role">Home</a></li>
         <li><a ui-sref="user">User</a></li>
         <li><a ui-sref="option">Options</a></li>
+        <li><a ng-click="logout()">Logout</a></li>
       </ul>
       <a href="#" class="button-collapse" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="240" data-closeonclick="false">
         <i class="mdi-navigation-menu material-icons">menu</i>
@@ -53,9 +53,11 @@
     <script src="js/core/routes.core.js"></script>
     <script src="js/app.module.js"></script>
     <script src="js/config/app.config.js"></script>
+    <script src="js/filters/app.filter.js"></script>
     <script src="js/factories/local.storage.factory.js"></script>
     <script src="js/factories/services.factory.js"></script>
     <script src="js/factories/session.manager.factory.js"></script>
+    <script src="js/factories/employees.factory.js"></script>
     <script src="js/controllers/session.controller.js"></script>
     <script src="js/controllers/admin.home.controller.js"></script>
     <script src="js/controllers/employee.home.controller.js"></script>

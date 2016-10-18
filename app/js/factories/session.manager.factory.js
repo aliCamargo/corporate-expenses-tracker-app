@@ -43,10 +43,10 @@
 
           baseServices.customDELETE().then(function(result) {
                   def.resolve(result);
-                  localStorage.reset();
+                  localStorage.removeAll();
               },
               function(error) {
-                  def.reject(error.data.errors);
+                  def.reject(error.data);
               });
 
           return def.promise;

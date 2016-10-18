@@ -12,7 +12,7 @@
             setObject: setObject,
             getObject: getObject,
             remove: remove,
-            reset: reset
+            removeAll: removeAll
         };
         return service;
 
@@ -37,7 +37,7 @@
             $window.localStorage.removeItem(key);
         }
 
-        function reset(){
+        function removeAll(){
             $window.localStorage.removeItem("user");
             $window.localStorage.removeItem("access_token");
             $window.localStorage.removeItem("member");

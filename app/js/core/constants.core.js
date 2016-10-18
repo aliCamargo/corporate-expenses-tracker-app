@@ -9,8 +9,8 @@
         .constant('BASE_URL', 'http://localhost:8085/')
 
         /* ----------------------------  Production ---------------------------------- */
-        // .constant('ENDPOINT_URL', 'https://corporate-expenses-tracker-app.herokuapp.com/api')
-        // .constant('BASE_URL', 'https://corporate-expenses-tracker-app.herokuapp.com')
+        // .constant('ENDPOINT_URL', 'https://corporate-expenses-tracker.herokuapp.com/api')
+        // .constant('BASE_URL', 'https://corporate-expenses-tracker.herokuapp.com')
 
 
 })();
