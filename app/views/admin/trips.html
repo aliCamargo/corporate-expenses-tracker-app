@@ -15,8 +15,11 @@
       <li class="collection-item avatar" ng-repeat="trip in vm.trips">
         <i ng-class="{'started': 'teal', 'finished': 'red'}[trip.status]" class="material-icons circle">airplanemode_active</i>
         <span class="title"><stron>Name: </stron>{{trip.name}}</span>
-        <p><stron>Budget: </stron>{{trip.budget | currency : $ : 2}} <br/>
-        <stron>User: </stron>{{trip.user.full_name | humanize}}
+        <p>
+            <stron>Budget: </stron>{{trip.budget | currency : $ : 2}}
+            <span ng-show="trip.status == 'finished'">- <stron>Refund: </stron> {{trip.refund | currency : $ : 2}}</span>
+            <br/>
+            <stron>User: </stron>{{trip.user.full_name | humanize}}
         </p>
         <!-- <a href="#!" class="tertiary-content btn-floating red" tooltipped data-position="bottom" data-tooltip="Delete"><i class="material-icons">remove</i></a> -->
         <button ng-click="vm.showExpenses(trip)" class="secondary-content btn-floating" tooltipped data-position="left" data-tooltip="Show expenses"><i class="material-icons">receipt</i></button>
@@ -41,23 +44,31 @@
           <thead>
           <tr>
               <th data-field="name">Name</th>
-              <th data-field="value">Coast</th>
+              <th data-field="value">Value</th>
+              <th data-field="note">Created at</th>
               <th data-field="note">Tags</th>
               <th data-field="note">Note</th>
           </tr>
           </thead>
 
           <tbody>
-          <tr ng-repeat="expense in vm.trip.expenses">
+          <tr ng-repeat="expense in expenses_filtered = (vm.trip.expenses | filter: vm.dayFilter('created_at', vm.searchDay) )">
               <td>{{expense.name}}</td>
               <td>{{expense.value | currency : $ : 2}}</td>
+              <td>{{expense.created_at | date : 'dd-MM-yyyy'}}</td>
               <td>{{expense.all_tags}}</td>
               <td>{{expense.note}}</td>
           </tr>
-          <tr nf-show="vm.trip.expenses">
-              <td colspan="4" class="centered">Not found expenses</td>
+          <tr ng-class="{false: 'hide'}[!vm.trip.expenses.length]">
+              <td colspan="5" class="centered">Not found expenses</td>
           </tr>
           </tbody>
+          <tfoot>
+          <tr ng-class="{true: 'hide'}[!vm.trip.expenses.length]">
+              <th>Total:</th>
+              <td colspan="4">{{expenses_filtered | sumByKey : 'value' : vm.searchDay | currency : $ : 2}}</td>
+          </tr>
+          </tfoot>
       </table>
 
   </div>

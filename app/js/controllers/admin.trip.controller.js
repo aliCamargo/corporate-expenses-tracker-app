@@ -24,7 +24,7 @@
         //-- load expenses list
         function showExpenses(trip){
             vm.openModal = true;
-            vm.trip_name =  trip.name
+            vm.trip =  trip
 
         };
 
