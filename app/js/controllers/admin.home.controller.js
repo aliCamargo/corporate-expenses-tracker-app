@@ -85,7 +85,6 @@
                     };
                 },
                 function(err){
-
                     angular.forEach(err.data.errors, function (value, key, array) {
                         if( angular.isArray(value) ){
                             toastr.error(value.join('<br/>'), $filter('humanize')(key));

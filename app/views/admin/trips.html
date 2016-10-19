@@ -1,0 +1,69 @@
+
+<div class="row">
+    <div class="col s12 title">
+        <h3>Trips</h3>
+    </div>
+</div>
+
+<a class="btn-floating btn-fixed-add btn-large waves-effect waves-light red" href='#modal-new-employee' ng-click='vm.openModal = true' modal open="vm.openModal"><i class="material-icons">add</i> </a>
+
+<div class="row">
+  <div class="col s12">
+    
+    <ul class="collection">
+
+      <li class="collection-item avatar" ng-repeat="trip in vm.trips">
+        <i ng-class="{'started': 'teal', 'finished': 'red'}[trip.status]" class="material-icons circle">airplanemode_active</i>
+        <span class="title"><stron>Name: </stron>{{trip.name}}</span>
+        <p><stron>Budget: </stron>{{trip.budget | currency : $ : 2}} <br/>
+        <stron>User: </stron>{{trip.user.full_name | humanize}}
+        </p>
+        <!-- <a href="#!" class="tertiary-content btn-floating red" tooltipped data-position="bottom" data-tooltip="Delete"><i class="material-icons">remove</i></a> -->
+        <button ng-click="vm.showExpenses(trip)" class="secondary-content btn-floating" tooltipped data-position="left" data-tooltip="Show expenses"><i class="material-icons">receipt</i></button>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+
+<!-- Modal Show expenses-->
+<a class="hide" href='#modal-new-trip' ng-click='vm.openModal = true' modal open="vm.openModal"><i class="material-icons">add</i> </a>
+<div id="modal-new-trip" class="modal modal-fixed-footer">
+  <div class="modal-content">
+      <div class="row">
+          <div class="col s12">
+              <h4>Expenses of {{vm.trip_name}}</h4>
+          </div>
+      </div>
+
+      <table class="bordered">
+          <thead>
+          <tr>
+              <th data-field="name">Name</th>
+              <th data-field="value">Coast</th>
+              <th data-field="note">Tags</th>
+              <th data-field="note">Note</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr ng-repeat="expense in vm.trip.expenses">
+              <td>{{expense.name}}</td>
+              <td>{{expense.value | currency : $ : 2}}</td>
+              <td>{{expense.all_tags}}</td>
+              <td>{{expense.note}}</td>
+          </tr>
+          <tr nf-show="vm.trip.expenses">
+              <td colspan="4" class="centered">Not found expenses</td>
+          </tr>
+          </tbody>
+      </table>
+
+  </div>
+
+  <div class="modal-footer">
+      <button class="btn-flat teal-text modal-action modal-close">Close</button>
+  </div>
+
+</div>

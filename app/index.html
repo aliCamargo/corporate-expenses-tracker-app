@@ -20,10 +20,9 @@
 <header>
     <nav class="teal">
       <ul id="nav-mobile" class="side-nav fixed">
-        <li><a>{{current_user.email}}</a></li>
-        <li><a ui-sref="#!">Home</a></li>
-        <li><a ui-sref="user">User</a></li>
-        <li><a ui-sref="option">Options</a></li>
+        <li><a>{{current_user.short_name}}</a></li>
+        <li><a ui-sref="admin" ng-show="current_user.role == 'admin'">Home</a></li>
+        <li><a ui-sref="admin.trips" ng-show="current_user.role == 'admin'">Trips</a></li>
         <li><a ng-click="logout()">Logout</a></li>
       </ul>
       <a href="#" class="button-collapse" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="240" data-closeonclick="false">
@@ -61,10 +60,8 @@
     <script src="js/factories/trips.factory.js"></script>
     <script src="js/controllers/session.controller.js"></script>
     <script src="js/controllers/admin.home.controller.js"></script>
+    <script src="js/controllers/admin.trip.controller.js"></script>
     <script src="js/controllers/employee.home.controller.js"></script>
-    <script src="js/controllers/home.controller.js"></script>
-    <script src="js/controllers/user.controller.js"></script>
-    <script src="js/controllers/option.controller.js"></script>
     <!-- Javascript UI-->
     <script>
         //$(".button-collapse").sideNav();

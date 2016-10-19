@@ -17,7 +17,6 @@
         $rootScope.base_url = BASE_URL;
 
         $rootScope.logout = function(){
-            console.log(SessionManagerFactory)
             SessionManagerFactory.Logout().then(
                     function(result){
                         toastr.success("Logout correctly!");
@@ -47,7 +46,7 @@
                 $rootScope.current_user = localStorage.getObject("user");
 
                 //-- If no have permission
-                if( next.session.role != $rootScope.current_user.role ){
+                if( next.session.role != $rootScope.current_user.role && next.session.role != 'all' ){
                     toastr.error('You no have permision', "Unauthorize");
                     $state.go( $rootScope.current_user.role );
                     event.preventDefault();
@@ -72,11 +71,13 @@
                 $rootScope.current_user = null;
                 localStorage.removeAll();
 
-                angular.forEach(response.data.errors,
-                        function (value, key, array) {
-                            toastr.error(value, key)
-                            //console.log("a[" + index + "] = " + element);
-                        })
+                angular.forEach(response.data.errors, function (value, key, array) {
+                    if( angular.isArray(value) ){
+                        toastr.error(value.join('<br/>'), $filter('humanize')(key));
+                    }else{
+                        toastr.error(value, $filter('humanize')(key));
+                    }
+                });
                 $state.go('login');
 
                 return false; // error handled

@@ -12,7 +12,11 @@ function appRoutes($stateProvider, $urlRouterProvider) {
         .state('login', {
             url: '/login',
             templateUrl: "views/session/login.html",
-            controller: "SessionController as vm"
+            controller: "SessionController as vm",
+            session: {
+                role: 'all',
+                login: false
+            }
         })
 
         .state('admin', {
@@ -22,8 +26,21 @@ function appRoutes($stateProvider, $urlRouterProvider) {
             session: {
                 role: 'admin', 
                 login: true
-            }
+            },
+            children:[
+
+            ]
         })
+
+            .state('admin.trips', {
+                url: '/trips',
+                templateUrl: "views/admin/trips.html",
+                controller: "AdminTripController as vm",
+                session: {
+                    role: 'admin',
+                    login: true
+                }
+            })
 
         .state('employee', {
             url: '/employee',
