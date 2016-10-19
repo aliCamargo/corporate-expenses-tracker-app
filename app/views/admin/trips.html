@@ -5,7 +5,7 @@
     </div>
 </div>
 
-<a class="btn-floating btn-fixed-add btn-large waves-effect waves-light red" href='#modal-new-employee' ng-click='vm.openModal = true' modal open="vm.openModal"><i class="material-icons">add</i> </a>
+<a class="btn-floating btn-fixed-add btn-large waves-effect waves-light red" href='#modal-new-trip' ng-click='vm.openModalTrip = true' modal open="vm.openModalTrip"><i class="material-icons">add</i> </a>
 
 <div class="row">
   <div class="col s12">
@@ -31,12 +31,12 @@
 
 
 <!-- Modal Show expenses-->
-<a class="hide" href='#modal-new-trip' ng-click='vm.openModal = true' modal open="vm.openModal"><i class="material-icons">add</i> </a>
-<div id="modal-new-trip" class="modal modal-fixed-footer">
+<a class="hide" href='#modal-show-expenses' ng-click='vm.openModal = true' modal open="vm.openModal"><i class="material-icons">add</i> </a>
+<div id="modal-show-expenses" class="modal modal-fixed-footer">
   <div class="modal-content">
       <div class="row">
           <div class="col s12">
-              <h4>Expenses of {{vm.trip_name}}</h4>
+              <h4>Expenses of {{vm.trip.name}}</h4>
           </div>
       </div>
 
@@ -77,4 +77,50 @@
       <button class="btn-flat teal-text modal-action modal-close">Close</button>
   </div>
 
+</div>
+
+<!-- Modal Create Trip -->
+<div id="modal-new-trip" class="modal">
+    <form name="createTrip" ng-submit="vm.createTrip()" novalidate>
+        <div class="modal-content">
+            <div class="row">
+                <div class="col s12">
+                    <h4>New Trip</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <input type="hidden" ng-model="vm.params.user.user_id">
+                    <div class="row">
+                        <div class="input-field col s12 m5">
+                            <input id="name" type="text" class="validate" ng-model="vm.trip_params.trip.name">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="input-field col s12 m5">
+                            <select id="user" ng-model="vm.trip_params.trip.user_id" material-select watch>
+                                <option value="{{user.id}}" ng-repeat="user in vm.users">{{user.full_name}}</option>
+                            </select>
+                            <label for="user">User</label>
+                        </div>
+                        <div class="input-field col s12 m2">
+                            <input id="budget" type="number" class="validate" ng-model="vm.trip_params.trip.budget">
+                            <label for="budget">Budget</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="description" class="materialize-textarea" ng-model="vm.trip_params.trip.description"></textarea>
+                            <label for="description">Description</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-flat teal-text" type="submit" >Save</button>
+            <button class="btn-flat red-text modal-action modal-close" type="reset" >Cancel</button>
+        </div>
+    </form>
 </div>
