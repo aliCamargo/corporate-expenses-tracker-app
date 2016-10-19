@@ -24,6 +24,7 @@
 
             <li><a ui-sref="admin" ng-show="current_user.role == 'admin'">Home</a></li>
             <li><a ui-sref="admin.trips" ng-show="current_user.role == 'admin'">Trips</a></li>
+            <li><a ui-sref="admin.tags" ng-show="current_user.role == 'admin'">Tags</a></li>
 
             <li><a ui-sref="employee" ng-show="current_user.role == 'employee'">Home</a></li>
 
@@ -62,10 +63,12 @@
     <script src="js/factories/session.manager.factory.js"></script>
     <script src="js/factories/employees.factory.js"></script>
     <script src="js/factories/trips.factory.js"></script>
+    <script src="js/factories/tags.factory.js"></script>
     <script src="js/factories/expenses.factory.js"></script>
     <script src="js/controllers/session.controller.js"></script>
     <script src="js/controllers/admin.home.controller.js"></script>
     <script src="js/controllers/admin.trip.controller.js"></script>
+    <script src="js/controllers/admin.tag.controller.js"></script>
     <script src="js/controllers/employee.home.controller.js"></script>
     <script src="js/controllers/employee.expense.controller.js"></script>
     <!-- Javascript UI-->

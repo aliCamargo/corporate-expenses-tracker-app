@@ -42,6 +42,16 @@ function appRoutes($stateProvider, $urlRouterProvider) {
                 }
             })
 
+            .state('admin.tags', {
+                url: '/tags',
+                templateUrl: "views/admin/tags.html",
+                controller: "AdminTagController as vm",
+                session: {
+                    role: 'admin',
+                    login: true
+                }
+            })
+
         .state('employee', {
             url: '/employee',
             templateUrl: "views/employee/home.html",
