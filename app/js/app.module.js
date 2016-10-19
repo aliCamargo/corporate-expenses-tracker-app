@@ -33,11 +33,10 @@
                         }, 1200);
                     }
                 );
-        }
+        };
 
         $rootScope.$on('$stateChangeStart', function(event, next, current) {
             var isAuthenticated = SessionManagerFactory.isAuthenticated();
-            console.log('next', next);
 
             if( !isAuthenticated && next.name != 'login'){
                 $state.go('login');
@@ -46,7 +45,6 @@
                 event.preventDefault();
             }else if( isAuthenticated ){
                 $rootScope.current_user = localStorage.getObject("user");
-                console.log('current_user', $rootScope.current_user);
 
                 //-- If no have permission
                 if( next.session.role != $rootScope.current_user.role ){
@@ -68,7 +66,7 @@
             document.body.scrollTop = document.documentElement.scrollTop = 0;
         });
 
-        
+        //-- Angular interceptor
         Restangular.setErrorInterceptor(function(response, deferred, responseHandler) {
             if (response.status === 401) {
                 $rootScope.current_user = null;

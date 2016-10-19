@@ -3,12 +3,12 @@
 
   angular
     .module('app')
-    .factory('EmployeeFactory', EmployeeFactory);
+    .factory('TripFactory', TripFactory);
 
-  EmployeeFactory.$inject = ['$q', 'Restangular', 'localStorage'];
+  TripFactory.$inject = ['$q', 'Restangular', 'localStorage'];
 
-  function EmployeeFactory($q, Restangular, localStorage) {
-  	var baseServices = Restangular.all('admin/users');  		
+  function TripFactory($q, Restangular, localStorage) {
+  	var baseServices = Restangular.all('admin/trips');
 
       var factory = {
         save: save,

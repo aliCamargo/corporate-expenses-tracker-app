@@ -16,12 +16,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 </head>
-<body ng-app="app">
+<body ng-app="app" ng-cloak>
 <header>
     <nav class="teal">
       <ul id="nav-mobile" class="side-nav fixed">
         <li><a>{{current_user.email}}</a></li>
-        <li><a ui-sref="current_user.role">Home</a></li>
+        <li><a ui-sref="#!">Home</a></li>
         <li><a ui-sref="user">User</a></li>
         <li><a ui-sref="option">Options</a></li>
         <li><a ng-click="logout()">Logout</a></li>
@@ -58,6 +58,7 @@
     <script src="js/factories/services.factory.js"></script>
     <script src="js/factories/session.manager.factory.js"></script>
     <script src="js/factories/employees.factory.js"></script>
+    <script src="js/factories/trips.factory.js"></script>
     <script src="js/controllers/session.controller.js"></script>
     <script src="js/controllers/admin.home.controller.js"></script>
     <script src="js/controllers/employee.home.controller.js"></script>

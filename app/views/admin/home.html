@@ -19,7 +19,7 @@
         {{user.role | humanize}}
         </p>
         <!-- <a href="#!" class="tertiary-content btn-floating red" tooltipped data-position="bottom" data-tooltip="Delete"><i class="material-icons">remove</i></a> -->
-        <a href="#!" ng-click="vm.newTrip(user.id)" ng-show="user.role == 'employee'" class="secondary-content btn-floating" tooltipped data-position="left" data-tooltip="Create trip"><i class="material-icons">airplanemode_active</i></a>
+        <button ng-click="vm.newTrip(user)" ng-show="user.role == 'employee'" class="secondary-content btn-floating" tooltipped data-position="left" data-tooltip="Create trip"><i class="material-icons">airplanemode_active</i></button>
       </li>
 
     </ul>
@@ -27,12 +27,16 @@
 </div>
 
 
-<!-- Modal Create Trip -->
-<div id="modal-new-trip" class="modal modal-fixed-footer">
+<!-- Modal Create Employee -->
+<div id="modal-new-employee" class="modal modal-fixed-footer">
   <form name="createEmployee" ng-submit="vm.createEmployee()" novalidate>
       <div class="modal-content">
-        
-          <h4>Create Employee</span>
+            <div class="row">
+                <div class="col s12">
+                    <h4>Create Employee</h4>
+                </div>
+            </div>
+
           <div class="row">
             <div class="col s12">
               <div class="row">
@@ -70,14 +74,14 @@
 
               <div class="row">
                 <div class="input-field col s12 m6">
-                  <select name="role" material-select watch ng-model="vm.params.user.role">
-                    <option value="admin">Eadmin</option>
+                  <select id="role" material-select watch ng-model="vm.params.user.role">
+                    <option value="admin">Admin</option>
                     <option value="employee">Employee</option>
                   </select>
                   <label for="role">Role</label>
                 </div>
                 <div class="input-field col s12 m6">
-                  <select name="gender" material-select watch ng-model="vm.params.user.gender">
+                  <select id="gender" material-select watch ng-model="vm.params.user.gender">
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                   </select>
@@ -98,7 +102,48 @@
         </div>
     
       <div class="modal-footer">
+          <button class="btn-flat teal-text" type="submit" >Save</button>
+          <button class="btn-flat red-text modal-action modal-close" type="reset" >Cancel</button>
+      </div>
+    </form>
+</div>
 
+
+<!-- Modal Create Trip -->
+<a class="hide" href='#modal-new-trip' ng-click='vm.openModalTrip = true' modal open="vm.openModalTrip"><i class="material-icons">add</i> </a>
+<div id="modal-new-trip" class="modal">
+  <form name="createTrip" ng-submit="vm.createTrip()" novalidate>
+      <div class="modal-content">
+          <div class="row">
+              <div class="col s12">
+                  <h4>Create Trip for {{vm.full_name}}</h4>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col s12">
+                  <input type="hidden" ng-model="vm.params.user.user_id">
+                  <div class="row">
+                      <div class="input-field col s12 m6">
+                          <input id="name" type="text" class="validate" ng-model="vm.trip_params.trip.name">
+                          <label for="name">Name</label>
+                      </div>
+                      <div class="input-field col s12 m6">
+                          <input id="budget" type="number" class="validate" ng-model="vm.trip_params.trip.budget">
+                          <label for="budget">Budget</label>
+                      </div>
+                      <div class="input-field col s12">
+                          <textarea id="description" class="materialize-textarea" ng-model="vm.trip_params.trip.description"></textarea>
+                          <label for="description">Description</label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+      </div>
+    
+      <div class="modal-footer">
           <button class="btn-flat teal-text" type="submit" >Save</button>
           <button class="btn-flat red-text modal-action modal-close" type="reset" >Cancel</button>
       </div>
