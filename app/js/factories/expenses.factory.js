@@ -3,12 +3,12 @@
 
   angular
     .module('app')
-    .factory('TripFactory', TripFactory);
+    .factory('ExpenseFactory', ExpenseFactory);
 
-  TripFactory.$inject = [ '$rootScope', '$q', 'Restangular', 'localStorage' ];
+  ExpenseFactory.$inject = [ '$rootScope', '$q', 'Restangular', 'localStorage' ];
 
-  function TripFactory($rootScope, $q, Restangular, localStorage) {
-  	var baseServices = Restangular.all($rootScope.current_user.role+'/trips');
+  function ExpenseFactory($rootScope, $q, Restangular, localStorage) {
+  	var baseServices = Restangular.all($rootScope.current_user.role + '/trips' );
 
       var factory = {
         save: save,
@@ -19,13 +19,13 @@
       }
       return factory;
 
-      function save(form) {
+      function save(form, trip_id) {
       	var token =  localStorage.getObject("access_token");
       	Restangular.setDefaultHeaders({Authorization: token});
 		
           var def = $q.defer();
 
-          baseServices.customPOST(form).then(function(result) {
+          baseServices.customPOST(form, trip_id + '/expenses').then(function(result) {
                   def.resolve(result);
               },
               function(error) {
@@ -36,13 +36,13 @@
       }
 
 
-      function update(form, id) {
+      function update(form, trip_id, id) {
       	var token =  localStorage.getObject("access_token");
       	Restangular.setDefaultHeaders({Authorization: token});
 		
           var def = $q.defer();
 
-          baseServices.customPUT(form, id).then(function(result) {
+          baseServices.customPUT(form, trip_id + '/expenses/' + id).then(function(result) {
                   def.resolve(result);
               },
               function(error) {
@@ -52,13 +52,13 @@
           return def.promise;
       }
 
-      function get() {
+      function get(trip_id) {
       	var token =  localStorage.getObject("access_token");
       	Restangular.setDefaultHeaders({Authorization: token});
 		
           var def = $q.defer();
 
-          baseServices.customGET().then(function(result) {
+          baseServices.customGET(trip_id + '/expenses').then(function(result) {
                   def.resolve(result);
               },
               function(error) {
@@ -68,13 +68,13 @@
           return def.promise;
       }
 
-      function show(id) {
+      function show(trip_id, id) {
       	var token =  localStorage.getObject("access_token");
       	Restangular.setDefaultHeaders({Authorization: token});
 		
           var def = $q.defer();
 
-          baseServices.customGET(id).then(function(result) {
+          baseServices.customGET('', trip_id + '/expenses/' + id).then(function(result) {
                   def.resolve(result);
               },
               function(error) {
@@ -84,13 +84,13 @@
           return def.promise;
       }
 
-      function remove(id) {
+      function remove(trip_id, id) {
       	var token =  localStorage.getObject("access_token");
       	Restangular.setDefaultHeaders({Authorization: token});
 		
           var def = $q.defer();
 
-          baseServices.customDELETE('', id).then(function(result) {
+          baseServices.customDELETE('', trip_id + '/expenses' + id).then(function(result) {
                   def.resolve(result);
               },
               function(error) {

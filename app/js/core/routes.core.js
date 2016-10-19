@@ -50,8 +50,17 @@ function appRoutes($stateProvider, $urlRouterProvider) {
                 role: 'employee', 
                 login: true
             }
-            
         })
+
+            .state('employee.expenses', {
+                url: '/expenses/{trip_id:int}',
+                templateUrl: "views/employee/expenses.html",
+                controller: "EmployeeExpenseController as vm",
+                session: {
+                    role: 'employee',
+                    login: true
+                }
+            })
 
 
 

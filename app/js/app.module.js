@@ -12,13 +12,15 @@
         'ngResource'
     ])
     .run(appRun);
-    // appRun.$inject =['RestangularProvider', 'ENDPOINT_URL'];
-    function appRun( $rootScope, $state, Restangular, $timeout, toastr, BASE_URL, localStorage, SessionManagerFactory) {
+
+    appRun.$inject =['$rootScope', '$state', '$filter', '$timeout', 'Restangular', 'toastr', 'BASE_URL', 'localStorage', 'SessionManagerFactory'];
+    function appRun( $rootScope, $state, $filter, $timeout, Restangular, toastr, BASE_URL, localStorage, SessionManagerFactory ) {
         $rootScope.base_url = BASE_URL;
 
         $rootScope.logout = function(){
             SessionManagerFactory.Logout().then(
                     function(result){
+                        $rootScope.current_user = null;
                         toastr.success("Logout correctly!");
                         $timeout(function() {
                             $state.go('login');
@@ -47,7 +49,7 @@
 
                 //-- If no have permission
                 if( next.session.role != $rootScope.current_user.role && next.session.role != 'all' ){
-                    toastr.error('You no have permision', "Unauthorize");
+                    toastr.error('You no have permission', "Forbidden");
                     $state.go( $rootScope.current_user.role );
                     event.preventDefault();
                 }
@@ -83,6 +85,10 @@
                 return false; // error handled
             }
 
+            if( response.status === 403 ){
+                 console.log( response )
+                toastr.error('You role no have permission for access to :' + response.config.method + ' ' + response.config.url, "Forbidden");
+            }
             return true; // error not handled
         });
     };

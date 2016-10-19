@@ -6,10 +6,52 @@
         .module('app')
         .controller('EmployeeHomeController', EmployeeHomeController);
 
-    function EmployeeHomeController() {
-        //vars
-        /* jshint validthis: true */
+    EmployeeHomeController.$inject = [ '$filter', 'toastr', 'TripFactory' ];
+    function EmployeeHomeController( $filter, toastr, TripFactory ) {
+
         var vm = this;
-        vm.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.";
+            vm.finishTrip = finishTrip,
+            vm.trips = [];
+
+        TripFactory.get().then(
+            function (r) {
+                vm.trips = r.trips;
+            }
+        );
+
+        //-- Finish a trip
+        function finishTrip( trip_id, index ){
+            var trip_params = {
+                trip: {
+                    status: 'finished'
+                }
+            }
+
+            TripFactory.update(trip_params, trip_id).then(
+                function (trip) {
+                    vm.trips[index] = trip;
+                    toastr.success('Trip finished correctly');
+
+                    vm.params = {
+                        trip: {
+                            status: ''
+                        }
+                    }
+                },
+                function(err){
+
+                    angular.forEach(err.data.errors, function (value, key, array) {
+                        if( angular.isArray(value) ){
+                            toastr.error(value.join('<br/>'), $filter('humanize')(key));
+                        }else{
+                            toastr.error(value, $filter('humanize')(key));
+                        }
+
+                        //console.log("a[" + index + "] = " + element);
+                    });
+                }
+            )
+        }
+
     }
 })();

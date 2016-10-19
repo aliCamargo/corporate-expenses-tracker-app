@@ -6,10 +6,22 @@ header, main, footer {
   padding-left: 240px;
 }
 
+.fixed-action-btn{
+	top: 80px;
+	right: 10px;
+	height: 55px;
+}
+
 .btn-fixed-add{
 	position: fixed;
 	top: 80px;
 	right: 10px;
+	z-index: 2;
+}
+.btn-fixed-on-modal{
+	position: fixed;
+	top: 24px;
+	right: 34px;
 	z-index: 2;
 }
 
